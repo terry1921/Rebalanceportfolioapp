@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="background">@color/catskill_white</color>
+
+    <color name="fun_blue">#1C6BA4</color>
+    <color name="congress_blue">#00508A</color>
+    <color name="blueberry">#4DB4FF</color>
+    <color name="ebony_clay">#253141</color>
+    <color name="mabel">#D6F6FF</color>
+    <color name="pacific_blue">#009DC7</color>
+
+    <color name="lynch">#68779F</color>
+
+    <color name="white_ice">#DCEDF9</color>
+    <color name="catskill_white">#F9FAFC</color>
+
+    <color name="colorPrimaryDark">@color/ebony_clay</color>
+    <color name="textColorPrimary">@color/white_ice</color>
+    <color name="textColorSecondary">@color/ebony_clay</color>
+
+    <color name="divider">@color/ebony_clay</color>
+    <color name="text">@color/white</color>
+    <color name="float_transparent">#00000000</color>
+    <color name="tree_poppy">#FDA015</color>
+    <color name="red_salsa">#F73859</color>
+
+</resources>

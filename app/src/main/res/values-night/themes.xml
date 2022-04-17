@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.RebalancedPortfolioApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/fun_blue</item>
+        <item name="colorPrimaryVariant">@color/congress_blue</item>
+        <item name="colorOnPrimary">@color/white_ice</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/mabel</item>
+        <item name="colorSecondaryVariant">@color/pacific_blue</item>
+        <item name="colorOnSecondary">@color/ebony_clay</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:background">@color/background</item>
+    </style>
+</resources>

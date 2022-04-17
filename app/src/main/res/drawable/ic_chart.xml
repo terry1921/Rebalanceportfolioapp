@@ -1,0 +1,11 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:width="24dp">
+    <path android:fillColor="@color/ebony_clay" android:pathData="M8.25,4.5C8.25,3.6716 8.9216,3 9.75,3V3C10.5784,3 11.25,3.6716 11.25,4.5V19.5C11.25,20.3284 10.5784,21 9.75,21V21C8.9216,21 8.25,20.3284 8.25,19.5V4.5Z"/>
+    <path android:fillColor="@color/ebony_clay" android:pathData="M3.75,17.25C3.75,16.4216 4.4216,15.75 5.25,15.75V15.75C6.0784,15.75 6.75,16.4216 6.75,17.25V19.5C6.75,20.3284 6.0784,21 5.25,21V21C4.4216,21 3.75,20.3284 3.75,19.5V17.25Z"/>
+    <path android:fillColor="@color/ebony_clay" android:pathData="M12.75,14.25C12.75,13.4216 13.4216,12.75 14.25,12.75V12.75C15.0784,12.75 15.75,13.4216 15.75,14.25V19.5C15.75,20.3284 15.0784,21 14.25,21V21C13.4216,21 12.75,20.3284 12.75,19.5V14.25Z"/>
+    <path android:fillColor="@color/ebony_clay" android:pathData="M17.25,9.75C17.25,8.9216 17.9216,8.25 18.75,8.25V8.25C19.5784,8.25 20.25,8.9216 20.25,9.75V19.5C20.25,20.3284 19.5784,21 18.75,21V21C17.9216,21 17.25,20.3284 17.25,19.5V9.75Z"/>
+</vector>
