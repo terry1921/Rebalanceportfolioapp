@@ -25,6 +25,8 @@ captures/
 .idea/caches
 
 # IntelliJ User-specific configurations
+.idea
+.idea/*
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
