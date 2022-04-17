@@ -21,7 +21,7 @@ class App : Application() {
     }
 
     companion object {
-        var preferences: SharedPreferences? = null
+        lateinit var preferences: SharedPreferences
         const val CONFIG_FILE_NAME: String = BuildConfig.CONF
     }
 
