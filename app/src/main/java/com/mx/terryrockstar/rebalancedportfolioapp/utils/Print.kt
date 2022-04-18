@@ -5,12 +5,12 @@ import com.mx.terryrockstar.rebalancedportfolioapp.BuildConfig
 import org.json.JSONObject
 
 /**
- * Created by Enrique Espinoza on 2019-10-23.
+ * Created by Enrique Espinoza
  */
 class Print {
 
     companion object {
-        private const val TAG = "Print"
+        private const val TAG = "Rebalanced Portfolio App"
 
         fun i(message: Any) {
             i(TAG, message)

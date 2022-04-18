@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.DisclaimerFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_start_page">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            style="@style/heading.title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:viewBindingIgnore="true"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:background="@color/float_transparent"
+            android:text="@string/welcome_text"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/appCompatImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/disclaimer"
+            style="@style/heading.title2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:viewBindingIgnore="true"
+            android:layout_marginStart="@dimen/margin_32"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="@dimen/margin_32"
+            android:background="@color/float_transparent"
+            android:text="@string/disclaimer_text"
+            android:textColor="@color/white_ice"
+            app:layout_constraintBottom_toTopOf="@+id/text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text"
+            style="@style/paragraph.body3"
+            android:textColor="@color/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:viewBindingIgnore="true"
+            android:layout_marginStart="@dimen/margin_32"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="@dimen/margin_32"
+            android:background="@color/float_transparent"
+            android:text="@string/disclaimer_body"
+            app:layout_constraintBottom_toTopOf="@+id/linkPrivacyPolice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/linkPrivacyPolice"
+            style="@style/label.link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/link_privacy_policy"
+            android:background="@color/float_transparent"
+            android:layout_marginStart="@dimen/margin_32"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/startButton" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            tools:viewBindingIgnore="true"
+            android:background="@color/float_transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32999998"
+            app:srcCompat="@drawable/ic_chart" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/startButton"
+            style="@style/button.orange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_32"
+            android:layout_marginEnd="@dimen/margin_32"
+            android:layout_marginBottom="16dp"
+            android:text="@string/start_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
