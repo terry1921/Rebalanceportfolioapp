@@ -2,10 +2,12 @@ package com.mx.terryrockstar.rebalancedportfolioapp.controller
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.ActivityDisclaimerBinding
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.Preferences
+
+const val DISCLAIMER = "disclaimer"
 
 class DisclaimerActivity : AppCompatActivity() {
 
@@ -25,13 +27,25 @@ class DisclaimerActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+
+        val isShowDisclaimer = Preferences().getPreference(DISCLAIMER, Boolean::class.java) as Boolean?
+
+        if (isShowDisclaimer != null && isShowDisclaimer) {
+            val intent = Intent(this@DisclaimerActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        Preferences().setPreference(DISCLAIMER, true)
         binding.linkPrivacyPolice.setOnClickListener {
             val intent = Intent(this@DisclaimerActivity, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }
         binding.startButton.setOnClickListener {
-            Toast.makeText(this@DisclaimerActivity, "Start", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@DisclaimerActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
+
     }
 
 }

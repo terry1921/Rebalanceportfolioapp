@@ -7,6 +7,23 @@ import com.mx.terryrockstar.rebalancedportfolioapp.App
 
 class Preferences {
 
+    fun setPreference(key: String?, value: Any) {
+        try {
+            val editor = App.preferences.edit()
+            when (value) {
+                is String -> editor.putString(key, value)
+                is Int -> editor.putInt(key, value)
+                is Boolean -> editor.putBoolean(key, value)
+                is Long -> editor.putLong(key, value)
+                is Float -> editor.putFloat(key, value)
+                else -> editor.putString(key, value.toString())
+            }
+            editor.apply()
+        } catch (e: java.lang.Exception) {
+            Print.d("Preferences", "setPreference:" + e.message, e.cause)
+        }
+    }
+
     fun <T> setPreferenceObject(key: String?, y: T) {
         val editor: SharedPreferences.Editor = App.preferences.edit()
         try {
@@ -26,6 +43,33 @@ class Preferences {
             gson.fromJson(value, c)
         } catch (t: Throwable) {
             Print.e("Preferences", "getPreferenceObject: " + t.message, t.cause)
+            null
+        }
+    }
+
+    fun <T> getPreference(key: String?, c: Class<T>): Any? {
+        return try {
+            when(c.name) {
+                String::class.java.name -> {
+                    App.preferences.getString(key, null)
+                }
+                Int::class.java.name -> {
+                    App.preferences.getInt(key, -1)
+                }
+                Boolean::class.java.name -> {
+                    App.preferences.getBoolean(key, false)
+                }
+                Long::class.java.name -> {
+                    App.preferences.getLong(key, -1L)
+                }
+                Float::class.java.name -> {
+                    App.preferences.getFloat(key, -1F)
+                }
+                else -> {
+                    App.preferences.getString(key, null)
+                }
+            }
+        } catch (e: Exception) {
             null
         }
     }
