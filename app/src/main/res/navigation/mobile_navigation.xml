@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/disclaimerFragment">
+
+
+    <fragment
+        android:id="@+id/disclaimerFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.controller.DisclaimerFragment"
+        android:label="fragment_disclaimer"
+        tools:layout="@layout/fragment_disclaimer" >
+        <action
+            android:id="@+id/action_privacy"
+            app:destination="@id/privacyPolicyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.controller.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" >
+        <action
+            android:id="@+id/action_disclaimer"
+            app:destination="@id/disclaimerFragment" />
+    </fragment>
+
+</navigation>

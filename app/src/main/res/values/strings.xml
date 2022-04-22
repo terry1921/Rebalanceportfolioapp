@@ -7,4 +7,6 @@
     <string name="start_button_text">Comenzar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_check_connection">Por favor revise su conexion a internet</string>
+
 </resources>
