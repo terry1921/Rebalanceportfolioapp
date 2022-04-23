@@ -35,12 +35,12 @@ class DisclaimerActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        Preferences().setPreference(DISCLAIMER, true)
         binding.linkPrivacyPolice.setOnClickListener {
             val intent = Intent(this@DisclaimerActivity, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }
         binding.startButton.setOnClickListener {
+            Preferences().setPreference(DISCLAIMER, true)
             val intent = Intent(this@DisclaimerActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
