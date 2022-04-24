@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">@color/catskill_white</color>
+    <color name="ic_launcher_background">#DCEDF9</color>
 
     <color name="fun_blue">#1C6BA4</color>
     <color name="congress_blue">#00508A</color>
