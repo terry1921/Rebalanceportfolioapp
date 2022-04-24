@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.ActivityPrivacyPolicyBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.ConnectionStatus
-import com.mx.terryrockstar.rebalancedportfolioapp.utils.POLICY_LINK
 
 class PrivacyPolicyActivity : AppCompatActivity() {
 
@@ -56,7 +55,8 @@ class PrivacyPolicyActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        binding.webView.loadUrl(POLICY_LINK)
+        val url = getString(R.string.privacy_policy_url)
+        binding.webView.loadUrl(url)
     }
 
 }
