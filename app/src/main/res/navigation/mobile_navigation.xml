@@ -7,18 +7,22 @@
 
     <fragment
         android:id="@+id/home_dest"
-        android:name="com.mx.terryrockstar.rebalancedportfolioapp.controller.HomeFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/group_dest"
-        android:name="com.mx.terryrockstar.rebalancedportfolioapp.controller.GroupsFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.groups.GroupsFragment"
         android:label="@string/groups"
         tools:layout="@layout/fragment_groups" />
     <fragment
         android:id="@+id/add_dest"
-        android:name="com.mx.terryrockstar.rebalancedportfolioapp.controller.AddFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddFragment"
         android:label="@string/add"
         tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/settings_dest"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.settings.SettingsFragment"
+        android:label="@string/setting" />
 
 </navigation>

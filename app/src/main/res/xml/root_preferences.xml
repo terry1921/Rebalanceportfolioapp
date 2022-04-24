@@ -1,0 +1,54 @@
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory>
+
+        <ListPreference
+            app:defaultValue="$"
+            app:entries="@array/currency_entries"
+            app:entryValues="@array/currency_values"
+            app:key="currency"
+            app:title="@string/currency_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:key="fingerprint"
+            app:summary="@string/not_available"
+            app:title="@string/fingerprint_security"
+            android:enabled="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/about_the_app">
+
+        <Preference
+            app:key="legal"
+            app:title="@string/legal_and_privacy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/privacy_policy_url" />
+        </Preference>
+
+        <Preference
+            app:key="feedback"
+            app:summary="@string/pref_feedback_sum"
+            app:title="@string/pref_feedback">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="mailto:terryrockstar22@gmail.com">
+                <extra
+                    android:name="android.intent.extra.SUBJECT"
+                    android:value="Rebalanced portfolio app suggestions" />
+            </intent>
+        </Preference>
+
+        <Preference
+            app:key="about"
+            app:summary="Copyright © 2022 Terry0022"
+            app:title="@string/app_name"
+            android:enabled="false"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

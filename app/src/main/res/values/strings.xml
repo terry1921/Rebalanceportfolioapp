@@ -10,5 +10,21 @@
     <string name="home">Inicio</string>
     <string name="groups">Grupos</string>
     <string name="add">Agregar</string>
+    <string name="no_assets_hint">Agregue uno usando la opción de menú \'agregar\'</string>
+    <string name="no_assets">No hay activos</string>
+    <string name="setting">Ajustes</string>
+    <string name="no_groups">No hay grupos</string>
+    <!-- Preference Titles -->
+    <string name="about_the_app">Sobre la aplicación</string>
+
+    <!-- Preferences -->
+    <string name="currency_title">Divisa</string>
+    <string name="sync_title">Sync email periodically</string>
+    <string name="fingerprint_security">Seguridad de huellas dactilares</string>
+    <string name="not_available">No disponible</string>
+    <string name="legal_and_privacy">Legal y Privacidad</string>
+    <string name="privacy_policy_url">https://pages.flycricket.io/rebalanced-portfolio/privacy.html</string>
+    <string name="pref_feedback">Enviar comentarios</string>
+    <string name="pref_feedback_sum">Informar problemas técnicos o sugerir nuevas funciones</string>
 
 </resources>
