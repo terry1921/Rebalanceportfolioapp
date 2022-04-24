@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@id/home_dest">
+    app:startDestination="@+id/home_dest">
 
     <fragment
         android:id="@+id/home_dest"
         android:name="com.mx.terryrockstar.rebalancedportfolioapp.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_add"
+            app:destination="@+id/add_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/group_dest"
         android:name="com.mx.terryrockstar.rebalancedportfolioapp.groups.GroupsFragment"
         android:label="@string/groups"
-        tools:layout="@layout/fragment_groups" />
+        tools:layout="@layout/fragment_groups" >
+
+        <action
+            android:id="@+id/action_add"
+            app:destination="@+id/add_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
     <fragment
         android:id="@+id/add_dest"
         android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddFragment"
         android:label="@string/add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add_group" >
+
+        <argument
+            android:name="from"
+            app:argType="integer"
+            android:defaultValue="1" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/settings_dest"
         android:name="com.mx.terryrockstar.rebalancedportfolioapp.settings.SettingsFragment"
