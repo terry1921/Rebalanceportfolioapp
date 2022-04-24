@@ -1,10 +1,10 @@
 package com.mx.terryrockstar.rebalancedportfolioapp.home
 
 import android.os.Bundle
+import android.text.Layout
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.TextView
-import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentHomeBinding
 
@@ -45,9 +45,12 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add) {
-            Toast.makeText(context, "Add Asset", Toast.LENGTH_SHORT).show()
+            val action = HomeFragmentDirections.actionAdd(FROM_HOME)
+            findNavController().navigate(action)
         }
         return super.onOptionsItemSelected(item)
     }
 
 }
+
+const val FROM_HOME = 1
