@@ -26,5 +26,10 @@
     <string name="privacy_policy_url">https://pages.flycricket.io/rebalanced-portfolio/privacy.html</string>
     <string name="pref_feedback">Enviar comentarios</string>
     <string name="pref_feedback_sum">Informar problemas técnicos o sugerir nuevas funciones</string>
+    <string name="name">Nombre</string>
+    <string name="target_allocation">Asignación de objetivos %</string>
+    <string name="note">Nota</string>
+    <string name="current_amount">Cantidad actual</string>
+    <string name="target_allocation_in_group">Asignación de objetivos % en grupo</string>
 
 </resources>
