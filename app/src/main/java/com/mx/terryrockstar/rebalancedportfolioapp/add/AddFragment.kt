@@ -1,4 +1,4 @@
-package com.mx.terryrockstar.rebalancedportfolioapp.controller
+package com.mx.terryrockstar.rebalancedportfolioapp.add
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
