@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/congress_blue</item>
         <item name="colorOnPrimary">@color/white_ice</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/mabel</item>
+        <item name="colorSecondary">@color/lynch</item>
         <item name="colorSecondaryVariant">@color/pacific_blue</item>
         <item name="colorOnSecondary">@color/ebony_clay</item>
         <!-- Status bar color. -->

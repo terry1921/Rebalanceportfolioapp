@@ -9,6 +9,7 @@
     <color name="congress_blue">#00508A</color>
     <color name="blueberry">#4DB4FF</color>
     <color name="ebony_clay">#253141</color>
+    <color name="pickled_bluewood">#30425A</color>
     <color name="mabel">#D6F6FF</color>
     <color name="pacific_blue">#009DC7</color>
 
@@ -19,7 +20,7 @@
 
     <color name="colorPrimaryDark">@color/ebony_clay</color>
     <color name="textColorPrimary">@color/white_ice</color>
-    <color name="textColorSecondary">@color/ebony_clay</color>
+    <color name="textColorSecondary">@color/pickled_bluewood</color>
 
     <color name="divider">@color/ebony_clay</color>
     <color name="text">@color/white</color>

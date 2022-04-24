@@ -33,7 +33,7 @@ class DisclaimerActivity : AppCompatActivity() {
         if (isShowDisclaimer != null && isShowDisclaimer) {
             val intent = Intent(this@DisclaimerActivity, MainActivity::class.java)
             startActivity(intent)
-            //finish()
+            finish()
         }
         binding.linkPrivacyPolice.setOnClickListener {
             val intent = Intent(this@DisclaimerActivity, PrivacyPolicyActivity::class.java)

@@ -40,10 +40,8 @@ class MainActivity : AppCompatActivity() {
                 resources.getResourceName(destination.id)
             } catch (e: Resources.NotFoundException) {
                 Print.e(javaClass.name, e.message, e.cause)
-                Integer.toString(destination.id)
+                destination.id.toString()
             }
-
-            Toast.makeText(this@MainActivity, "Navigated to $dest", Toast.LENGTH_SHORT).show()
             Print.d("MainActivity", "Navigated to $dest")
         }
 
