@@ -3,11 +3,9 @@ package com.mx.terryrockstar.rebalancedportfolioapp.groups
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.TextView
-import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentGroupsBinding
-import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentHomeBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -43,9 +41,12 @@ class GroupsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add) {
-            Toast.makeText(context, "Add Group", Toast.LENGTH_SHORT).show()
+            val action = GroupsFragmentDirections.actionAdd(FROM_GROUP)
+            findNavController().navigate(action)
         }
         return super.onOptionsItemSelected(item)
     }
 
 }
+
+const val FROM_GROUP = 2
