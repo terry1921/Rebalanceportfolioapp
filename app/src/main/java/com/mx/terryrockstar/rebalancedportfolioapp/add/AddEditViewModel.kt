@@ -22,8 +22,6 @@ class AddEditViewModel(
 
     private val _items = MutableLiveData<List<Group>>().apply { value = emptyList() }
     val items: LiveData<List<Group>> = _items
-    private val _allocation = MutableLiveData<String>().apply { value = "0" }
-    val allocation: LiveData<String> = _allocation
 
     init {
         //loadGroups(true)
