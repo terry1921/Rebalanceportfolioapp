@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
                 android:gravity="center"
-                android:hint="@string/_0"
+                android:hint="@string/zero"
                 android:inputType="number"
                 app:layout_constraintEnd_toStartOf="@+id/percent"
                 app:layout_constraintTop_toBottomOf="@+id/titleAllocation" />

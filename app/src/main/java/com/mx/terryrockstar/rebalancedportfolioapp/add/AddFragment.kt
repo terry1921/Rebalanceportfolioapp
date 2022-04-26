@@ -145,14 +145,28 @@ class AddFragment : Fragment() {
     }
 
     private fun saveAsset() {
-        // TODO() set validations
         val group = bindingAsset.groups.selectedItem as Group
-        val asset = Asset(group.id,
-            bindingAsset.name.text.toString(),
-            bindingAsset.mount.text.toString().toFloat(),
-            bindingAsset.allocation.text.toString().toFloat(),
-            bindingAsset.note.text.toString()
-        )
+        val name = bindingAsset.name.text.toString()
+        val mount = bindingAsset.mount.text.toString()
+        var allocation = bindingAsset.allocation.text.toString()
+        val note = bindingAsset.note.text.toString()
+
+        if (name.isEmpty()) {
+            bindingAsset.name.error = getString(R.string.required)
+            bindingAsset.name.requestFocus()
+            return
+        }
+
+        if (mount.isEmpty()) {
+            bindingAsset.mount.error = getString(R.string.required)
+            bindingAsset.mount.requestFocus()
+        }
+
+        if (allocation.isEmpty()) {
+            allocation = getString(R.string.zero)
+        }
+
+        val asset = Asset(group.id, name, mount.toFloat(), allocation.toFloat(), note)
         viewModel.saveAsset(asset)
     }
 
