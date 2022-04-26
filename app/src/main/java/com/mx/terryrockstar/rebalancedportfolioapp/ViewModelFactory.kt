@@ -21,6 +21,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.add.AddEditViewModel
 import com.mx.terryrockstar.rebalancedportfolioapp.data.source.Repository
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupUseCase
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupsUseCase
+import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveAssetUseCase
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveGroupUseCase
 
 /**
@@ -36,7 +37,8 @@ class ViewModelFactory constructor(
                     isAssignableFrom(AddEditViewModel::class.java) ->
                         AddEditViewModel(GetGroupUseCase(repository),
                             GetGroupsUseCase(repository),
-                            SaveGroupUseCase(repository)
+                            SaveGroupUseCase(repository),
+                            SaveAssetUseCase(repository)
                         )
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

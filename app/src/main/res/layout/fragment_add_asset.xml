@@ -12,133 +12,150 @@
             type="com.mx.terryrockstar.rebalancedportfolioapp.add.AddEditViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_24"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:hint="@string/name"
-            android:inputType="text"
-            android:lines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/titleAmount"
-            style="@style/TextTitle.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/current_amount"
-            android:textColor="@color/lynch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_24"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:lines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextTitle.Large"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:text="$"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleAmount" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleAmount"
+                style="@style/TextTitle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/current_amount"
+                android:textColor="@color/lynch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/mount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_8"
-            android:inputType="numberDecimal"
-            android:lines="1"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
-            app:layout_constraintTop_toTopOf="@+id/appCompatTextView" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTitle.Large"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/currency_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleAmount" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/titleGroup"
-            style="@style/TextTitle.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/groups"
-            android:textColor="@color/lynch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mount" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/mount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_8"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/currency"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/currency"
+                app:layout_constraintTop_toTopOf="@+id/currency" />
 
-        <!--app:spinnerItems="@{viewmodel.items}"
-        selectedSpinnerItem="@{viewmodel.selectedItem}"-->
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/groups"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleGroup"
+                style="@style/TextTitle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/groups"
+                android:textColor="@color/lynch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mount" />
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleGroup" />
+            <!--app:spinnerItems="@{viewmodel.items}"
+            selectedSpinnerItem="@{viewmodel.selectedItem}"-->
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/groups"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/titleAllocation"
-            style="@style/TextTitle.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/target_allocation_in_group"
-            android:textColor="@color/lynch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groups" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleGroup" />
 
-        <androidx.appcompat.widget.AppCompatSeekBar
-            android:id="@+id/seekbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            app:layout_constraintBottom_toBottomOf="@+id/allocation"
-            app:layout_constraintEnd_toStartOf="@+id/allocation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/allocation" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleAllocation"
+                style="@style/TextTitle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/target_allocation_in_group"
+                android:textColor="@color/lynch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groups" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/allocation"
-            android:layout_width="@dimen/size_50"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:gravity="center"
-            android:hint="0"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleAllocation" />
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                app:layout_constraintBottom_toBottomOf="@+id/allocation"
+                app:layout_constraintEnd_toStartOf="@+id/allocation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/allocation" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/note"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:hint="@string/note"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/allocation" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/allocation"
+                android:layout_width="@dimen/size_50"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:gravity="center"
+                android:hint="@string/_0"
+                android:inputType="number"
+                app:layout_constraintEnd_toStartOf="@+id/percent"
+                app:layout_constraintTop_toBottomOf="@+id/titleAllocation" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextTitle.Medium"
+                android:text="@string/percent_label"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/allocation"
+                app:layout_constraintTop_toTopOf="@+id/allocation" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/note"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:hint="@string/note"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/allocation" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

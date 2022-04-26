@@ -57,12 +57,22 @@
             android:layout_width="@dimen/size_50"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
             android:gravity="center"
-            android:hint="0"
+            android:hint="@string/_0"
             android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/percent"
             app:layout_constraintTop_toBottomOf="@+id/titleAllocation" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextTitle.Medium"
+            android:text="%"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/allocation"
+            app:layout_constraintTop_toTopOf="@+id/allocation" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/note"

@@ -56,9 +56,9 @@ class LocalDataSource internal constructor(
 
     override suspend fun getGroups(): Result<List<Group>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(assetsDao.getGroups())
+            Success(assetsDao.getGroups())
         } catch (e: java.lang.Exception) {
-            Result.Error(e)
+            Error(e)
         }
     }
 
@@ -66,12 +66,12 @@ class LocalDataSource internal constructor(
         try {
             val group = assetsDao.getGroupById(groupId)
             if (group != null) {
-                return@withContext Result.Success(group)
+                return@withContext Success(group)
             } else {
-                return@withContext Result.Error(java.lang.Exception("Group not found"))
+                return@withContext Error(java.lang.Exception("Group not found"))
             }
         } catch (e: java.lang.Exception) {
-            return@withContext Result.Error(e)
+            return@withContext Error(e)
         }
     }
 

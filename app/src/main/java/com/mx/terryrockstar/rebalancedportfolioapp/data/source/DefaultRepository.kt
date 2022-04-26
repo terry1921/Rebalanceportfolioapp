@@ -202,7 +202,7 @@ class DefaultRepository(
 
     private fun refreshAssetCache(data: List<Asset>) {
         cachedAssets?.clear()
-        data.sortedBy { it.groupId }.forEach {
+        data.sortedBy { it.name }.forEach {
             assetCacheAndPerform(it) {}
         }
     }

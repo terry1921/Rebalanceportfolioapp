@@ -31,5 +31,8 @@
     <string name="note">Nota</string>
     <string name="current_amount">Cantidad actual</string>
     <string name="target_allocation_in_group">Asignación de objetivos % en grupo</string>
+    <string name="_0">0</string>
+    <string name="currency_label">$</string>
+    <string name="percent_label">%</string>
 
 </resources>
