@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.mx.terryrockstar.rebalancedportfolioapp.R
+import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddAssetBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddGroupBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.groups.FROM_GROUP
@@ -59,16 +61,18 @@ class AddFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (isFrom == FROM_HOME) {
-            viewModel.loadGroups(true)
-            //bindingAsset.text.text = "I'm from Assets"
-            /*val mAdapter = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_1) }
-            mAdapter?.add("MX Stocks")
-            mAdapter?.add("USA Stocks")
-            mAdapter?.add("Emergentes")
-            mAdapter?.add("Fibras")
+            val myAdapter = BindableSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, mutableListOf())
+
+            viewModel.items.observe(viewLifecycleOwner) { data ->
+                data?.forEach {
+                    myAdapter.add(it)
+                }
+            }
             bindingAsset.groups.apply {
-                adapter = mAdapter
-            }*/
+                adapter = myAdapter
+            }
+
+            viewModel.loadGroups(true)
         }
 
         if (isFrom == FROM_GROUP) {
