@@ -160,6 +160,7 @@ class AddFragment : Fragment() {
         if (mount.isEmpty()) {
             bindingAsset.mount.error = getString(R.string.required)
             bindingAsset.mount.requestFocus()
+            return
         }
 
         if (allocation.isEmpty()) {
