@@ -1,18 +1,19 @@
 package com.mx.terryrockstar.rebalancedportfolioapp.data.source.local
 
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Asset
+import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Error
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Success
-import com.mx.terryrockstar.rebalancedportfolioapp.data.source.AssetDataSource
+import com.mx.terryrockstar.rebalancedportfolioapp.data.source.DataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AssetsLocalDataSource internal constructor(
-    private val assetsDao: AssetsDao,
+class LocalDataSource internal constructor(
+    private val assetsDao: AppDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : AssetDataSource {
+) : DataSource {
 
     override suspend fun getAssets(): Result<List<Asset>> = withContext(ioDispatcher) {
         return@withContext try {
@@ -51,6 +52,45 @@ class AssetsLocalDataSource internal constructor(
 
     override suspend fun deleteAllAssets() = withContext(ioDispatcher) {
         assetsDao.deleteAllAssets()
+    }
+
+    override suspend fun getGroups(): Result<List<Group>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(assetsDao.getGroups())
+        } catch (e: java.lang.Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getGroup(groupId: Long): Result<Group> = withContext(ioDispatcher) {
+        try {
+            val group = assetsDao.getGroupById(groupId)
+            if (group != null) {
+                return@withContext Result.Success(group)
+            } else {
+                return@withContext Result.Error(java.lang.Exception("Group not found"))
+            }
+        } catch (e: java.lang.Exception) {
+            return@withContext Result.Error(e)
+        }
+    }
+
+    override suspend fun saveGroup(group: Group) = withContext(ioDispatcher) {
+        assetsDao.insertGroup(group)
+    }
+
+    override suspend fun updateGroup(group: Group) = withContext(ioDispatcher) {
+        val updated = assetsDao.updateGroup(group)
+        return@withContext (updated == 1)
+    }
+
+    override suspend fun deleteGroup(groupId: Long): Boolean = withContext(ioDispatcher) {
+        val deleted = assetsDao.deleteGroupById(groupId)
+        return@withContext (deleted == 1)
+    }
+
+    override suspend fun deleteAllGroups() = withContext(ioDispatcher) {
+        assetsDao.deleteAllGroups()
     }
 
 }

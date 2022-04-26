@@ -10,8 +10,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
 class DefaultRepository(
-    private val assetDataSource: AssetDataSource,
-    private val groupDataSource: GroupDataSource,
+    private val localDataSource: DataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): Repository {
 
@@ -67,7 +66,7 @@ class DefaultRepository(
     override suspend fun saveAsset(asset: Asset) {
         assetCacheAndPerform(asset) {
             coroutineScope {
-                launch { assetDataSource.saveAsset(it) }
+                launch { localDataSource.saveAsset(it) }
             }
         }
     }
@@ -75,14 +74,14 @@ class DefaultRepository(
     override suspend fun updateAsset(asset: Asset) {
         assetCacheAndPerform(asset) {
             coroutineScope {
-                launch { assetDataSource.updateAsset(it) }
+                launch { localDataSource.updateAsset(it) }
             }
         }
     }
 
     override suspend fun deleteAsset(assetId: Long) {
         coroutineScope {
-            launch { assetDataSource.deleteAsset(assetId) }
+            launch { localDataSource.deleteAsset(assetId) }
         }
 
         cachedAssets?.remove(assetId)
@@ -91,7 +90,7 @@ class DefaultRepository(
     override suspend fun deleteAllAssets() {
         withContext(ioDispatcher) {
             coroutineScope {
-                launch { assetDataSource.deleteAllAssets() }
+                launch { localDataSource.deleteAllAssets() }
             }
         }
         cachedAssets?.clear()
@@ -152,7 +151,7 @@ class DefaultRepository(
     override suspend fun saveGroup(group: Group) {
         groupCacheAndPerform(group) {
             coroutineScope {
-                launch { groupDataSource.saveGroup(it) }
+                launch { localDataSource.saveGroup(it) }
             }
         }
     }
@@ -160,14 +159,14 @@ class DefaultRepository(
     override suspend fun updateGroup(group: Group) {
         groupCacheAndPerform(group) {
             coroutineScope {
-                launch { groupDataSource.updateGroup(it) }
+                launch { localDataSource.updateGroup(it) }
             }
         }
     }
 
     override suspend fun deleteGroup(groupId: Long) {
         coroutineScope {
-            launch { groupDataSource.deleteGroup(groupId) }
+            launch { localDataSource.deleteGroup(groupId) }
         }
 
         cachedGroups?.remove(groupId)
@@ -176,7 +175,7 @@ class DefaultRepository(
     override suspend fun deleteAllGroups() {
         withContext(ioDispatcher) {
             coroutineScope {
-                launch { groupDataSource.deleteAllGroups() }
+                launch { localDataSource.deleteAllGroups() }
             }
         }
         cachedGroups?.clear()
@@ -190,13 +189,13 @@ class DefaultRepository(
 
     private suspend fun fetchAssetsFromLocal(): Result<List<Asset>> {
         // Local
-        val localAssets = assetDataSource.getAssets()
+        val localAssets = localDataSource.getAssets()
         if (localAssets is Success) return localAssets
         return Error(Exception("Error fetching from local"))
     }
 
     private suspend fun fetchAssetsFromLocal(assetId: Long) : Result<Asset> {
-        val localAsset = assetDataSource.getAsset(assetId)
+        val localAsset = localDataSource.getAsset(assetId)
         if (localAsset is Success) return localAsset
         return Error(Exception("Error fetching from local"))
     }
@@ -211,12 +210,12 @@ class DefaultRepository(
     private fun getAssetWithId(assetId: Long) = cachedAssets?.get(assetId)
 
     private fun cacheAsset(asset: Asset): Asset {
-        val cachedAsset = Asset(asset.assetId, asset.groupId, asset.name, asset.amount, asset.targetAllocation, asset.note)
+        val cachedAsset = Asset(asset.id, asset.groupId, asset.name, asset.amount, asset.targetAllocation, asset.note)
         // Create if it doesn't exist.
         if (cachedAssets == null) {
             cachedAssets = ConcurrentHashMap()
         }
-        cachedAssets?.put(cachedAsset.assetId, cachedAsset)
+        cachedAssets?.put(cachedAsset.id, cachedAsset)
         return cachedAsset
     }
 
@@ -233,20 +232,20 @@ class DefaultRepository(
 
     private suspend fun fetchGroupsFromLocal(): Result<List<Group>> {
         // Local
-        val localGroups = groupDataSource.getGroups()
+        val localGroups = localDataSource.getGroups()
         if (localGroups is Success) return localGroups
         return Error(Exception("Error fetching from local"))
     }
 
     private suspend fun fetchGroupsFromLocal(groupId: Long) : Result<Group> {
-        val localGroup = groupDataSource.getGroup(groupId)
+        val localGroup = localDataSource.getGroup(groupId)
         if (localGroup is Success) return localGroup
         return Error(Exception("Error fetching from local"))
     }
 
     private fun refreshGroupCache(data: List<Group>) {
         cachedGroups?.clear()
-        data.sortedBy { it.groupId }.forEach {
+        data.sortedBy { it.id }.forEach {
             groupCacheAndPerform(it) {}
         }
     }
@@ -254,12 +253,12 @@ class DefaultRepository(
     private fun getGroupWithId(groupId: Long) = cachedGroups?.get(groupId)
 
     private fun cacheGroup(group: Group): Group {
-        val cachedGroup = Group(group.groupId, group.name, group.targetAllocation, group.note)
+        val cachedGroup = Group(group.id, group.name, group.targetAllocation, group.note)
         // Create if it doesn't exist.
         if (cachedGroups == null) {
             cachedGroups = ConcurrentHashMap()
         }
-        cachedGroups?.put(cachedGroup.groupId, cachedGroup)
+        cachedGroups?.put(cachedGroup.id, cachedGroup)
         return cachedGroup
     }
 
