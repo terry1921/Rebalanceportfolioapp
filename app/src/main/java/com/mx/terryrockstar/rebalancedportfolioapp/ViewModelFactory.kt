@@ -23,6 +23,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupUseCase
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupsUseCase
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveAssetUseCase
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveGroupUseCase
+import com.mx.terryrockstar.rebalancedportfolioapp.groups.GroupsViewModel
 
 /**
  * Factory for all ViewModels.
@@ -40,6 +41,8 @@ class ViewModelFactory constructor(
                             SaveGroupUseCase(repository),
                             SaveAssetUseCase(repository)
                         )
+                    isAssignableFrom(GroupsViewModel::class.java) ->
+                        GroupsViewModel(GetGroupsUseCase(repository))
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
                 }
