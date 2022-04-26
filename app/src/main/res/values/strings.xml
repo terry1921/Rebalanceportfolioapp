@@ -35,5 +35,6 @@
     <string name="currency_label">$</string>
     <string name="percent_label">%</string>
     <string name="required">Requerido</string>
+    <string name="target">Objetivo</string>
 
 </resources>
