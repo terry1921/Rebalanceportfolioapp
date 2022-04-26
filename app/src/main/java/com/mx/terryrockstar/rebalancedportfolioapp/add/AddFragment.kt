@@ -3,7 +3,6 @@ package com.mx.terryrockstar.rebalancedportfolioapp.add
 import android.os.Bundle
 import android.view.*
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -16,7 +15,6 @@ import com.mx.terryrockstar.rebalancedportfolioapp.groups.FROM_GROUP
 import com.mx.terryrockstar.rebalancedportfolioapp.home.FROM_HOME
 import com.mx.terryrockstar.rebalancedportfolioapp.settings.CURRENCY_PREFERENCE
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.Preferences
-import com.mx.terryrockstar.rebalancedportfolioapp.utils.Print
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.getViewModelFactory
 
 /**
@@ -128,10 +126,21 @@ class AddFragment : Fragment() {
     }
 
     private fun saveGroup() {
-        // TODO() set validations
-        val group = Group(bindingGroup.name.text.toString(),
-            bindingGroup.allocation.text.toString().toFloat(),
-            bindingGroup.note.text.toString())
+        val name = bindingGroup.name.text.toString()
+        var allocation = bindingGroup.allocation.text.toString()
+        val note = bindingGroup.note.text.toString()
+
+        if (name.isEmpty()) {
+            bindingGroup.name.error = getString(R.string.required)
+            bindingGroup.name.requestFocus()
+            return
+        }
+
+        if (allocation.isEmpty()) {
+            allocation = getString(R.string.zero)
+        }
+
+        val group = Group(name, allocation.toFloat(), note)
         viewModel.saveGroup(group)
     }
 
