@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
+import kotlin.math.roundToInt
 
 @Entity(tableName = "groups")
 data class Group(
@@ -22,5 +23,9 @@ data class Group(
 
     override fun toString(): String {
         return Gson().toJson(this)
+    }
+
+    fun getTarget() : String {
+        return targetAllocation.roundToInt().toString()
     }
 }

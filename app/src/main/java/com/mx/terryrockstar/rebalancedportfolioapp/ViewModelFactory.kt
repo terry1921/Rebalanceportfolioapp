@@ -19,10 +19,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mx.terryrockstar.rebalancedportfolioapp.add.AddEditViewModel
 import com.mx.terryrockstar.rebalancedportfolioapp.data.source.Repository
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupUseCase
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupsUseCase
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveAssetUseCase
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveGroupUseCase
+import com.mx.terryrockstar.rebalancedportfolioapp.domain.*
 import com.mx.terryrockstar.rebalancedportfolioapp.groups.GroupsViewModel
 
 /**
@@ -37,6 +34,7 @@ class ViewModelFactory constructor(
                 when {
                     isAssignableFrom(AddEditViewModel::class.java) ->
                         AddEditViewModel(GetGroupUseCase(repository),
+                            GetAssetUseCase(repository),
                             GetGroupsUseCase(repository),
                             SaveGroupUseCase(repository),
                             SaveAssetUseCase(repository)

@@ -7,14 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Asset
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupUseCase
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupsUseCase
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveAssetUseCase
-import com.mx.terryrockstar.rebalancedportfolioapp.domain.SaveGroupUseCase
+import com.mx.terryrockstar.rebalancedportfolioapp.domain.*
 import kotlinx.coroutines.launch
 
 class AddEditViewModel(
     private val getGroupUseCase: GetGroupUseCase,
+    private val getAssetUseCase: GetAssetUseCase,
     private val getGroupsUseCase: GetGroupsUseCase,
     private val saveGroupUseCase: SaveGroupUseCase,
     private val saveAssetUseCase: SaveAssetUseCase
