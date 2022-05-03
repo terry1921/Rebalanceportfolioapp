@@ -64,60 +64,10 @@ class AddFragment : Fragment() {
         if (isFrom == FROM_HOME) {
             initAssetUI()
         }
-
         if (isFrom == FROM_GROUP) {
             initGroupUI()
         }
 
-    }
-
-    private fun initGroupUI() {
-        setupSeekBarAllocation()
-        setupNavigation()
-    }
-
-    private fun setupNavigation() {
-        viewModel.groupUpdateEvent.observe(viewLifecycleOwner, EventObserver {
-            activity?.onBackPressed()
-        })
-    }
-
-    private fun setupSeekBarAllocation() {
-        bindingGroup.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                bindingGroup.allocation.setText(progress.toString())
-
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
-        })
-    }
-
-    private fun initAssetUI() {
-        val currency = Preferences().getPreference(CURRENCY_PREFERENCE, String::class.java) as String?
-        if (!currency.isNullOrEmpty()) {
-            bindingAsset.currency.text = currency
-        }
-        // load groups
-        val myAdapter = BindableSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, mutableListOf())
-        bindingAsset.groups.apply {
-            adapter = myAdapter
-        }
-        // component seekbar allocation
-        bindingAsset.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                bindingAsset.allocation.setText(progress.toString())
-
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
-        })
-        viewModel.items.observe(viewLifecycleOwner) { data ->
-            data?.forEach {
-                myAdapter.add(it)
-            }
-        }
-        viewModel.loadGroups(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -136,6 +86,88 @@ class AddFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * > Create/Edit Group UI
+     */
+    private fun initGroupUI() {
+        setupSeekBarAllocation(FROM_GROUP)
+        setupNavigation()
+    }
+
+    /**
+     * > Observe the `groupUpdateEvent` LiveData object and when it changes, call the `onBackPressed`
+     * function on the activity
+     */
+    private fun setupNavigation() {
+        viewModel.groupUpdateEvent.observe(viewLifecycleOwner, EventObserver {
+            activity?.onBackPressed()
+        })
+    }
+
+    /**
+     * > This function sets up the seekbar to update the allocation textview when the seekbar is
+     * changed
+     */
+    private fun setupSeekBarAllocation(isFrom: Int) {
+        when(isFrom) {
+            FROM_HOME -> {
+                bindingAsset.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) = bindingAsset.allocation.setText(progress.toString())
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+                })
+            }
+            else -> {
+                bindingGroup.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) = bindingGroup.allocation.setText(progress.toString())
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+                })
+            }
+        }
+    }
+
+    /**
+     * > Create/Edit Asset UI
+     */
+    private fun initAssetUI() {
+        setupCurrency()
+        setupSeekBarAllocation(FROM_HOME)
+        setupPopulateGroupSpinner()
+    }
+
+    /**
+     * > This function sets the currency text in the UI to the currency saved in the shared preferences
+     */
+    private fun setupCurrency() {
+        val currency = Preferences().getPreference(CURRENCY_PREFERENCE, String::class.java) as String?
+        if (!currency.isNullOrEmpty()) {
+            bindingAsset.currency.text = currency
+        }
+    }
+
+    /**
+     * > Creating a new adapter, setting it to the spinner, and then observing the data from the
+     * view model
+     */
+    private fun setupPopulateGroupSpinner() {
+        val myAdapter = BindableSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, mutableListOf())
+        bindingAsset.groups.apply {
+            adapter = myAdapter
+        }
+        viewModel.items.observe(viewLifecycleOwner) { data ->
+            data?.forEach {
+                myAdapter.add(it)
+            }
+        }
+        viewModel.loadGroups(true)
+    }
+
+    /**
+     * > The function saves a group to the database
+     *
+     * @return A group object is being returned.
+     */
     private fun saveGroup() {
         val name = bindingGroup.name.text.toString()
         var allocation = bindingGroup.allocation.text.toString()
@@ -155,6 +187,11 @@ class AddFragment : Fragment() {
         viewModel.saveGroup(group)
     }
 
+    /**
+     * It saves an asset to the database
+     *
+     * @return the value of the function.
+     */
     private fun saveAsset() {
         val group = bindingAsset.groups.selectedItem as Group
         val name = bindingAsset.name.text.toString()
