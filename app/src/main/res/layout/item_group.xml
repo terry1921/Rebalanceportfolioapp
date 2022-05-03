@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_16"
         android:onClick="@{() -> viewmodel.openGroup(group.id)}">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -34,7 +34,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/target"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@{group.target}"
             style="@style/TextTitle.Medium"
