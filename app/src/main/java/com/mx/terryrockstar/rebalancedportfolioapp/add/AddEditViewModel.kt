@@ -8,6 +8,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.data.Asset
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.*
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.Event
 import kotlinx.coroutines.launch
 
 class AddEditViewModel(
@@ -20,6 +21,9 @@ class AddEditViewModel(
 
     private val _items = MutableLiveData<List<Group>>().apply { value = emptyList() }
     val items: LiveData<List<Group>> = _items
+
+    private val _groupUpdateEvent = MutableLiveData<Event<Unit>>()
+    val groupUpdateEvent: LiveData<Event<Unit>> = _groupUpdateEvent
 
     init {
         //loadGroups(true)
@@ -44,10 +48,9 @@ class AddEditViewModel(
         }
     }
 
-    fun saveGroup(group: Group) {
-        viewModelScope.launch {
-            saveGroupUseCase(group)
-        }
+    fun saveGroup(group: Group) = viewModelScope.launch {
+        saveGroupUseCase(group)
+        _groupUpdateEvent.value = Event(Unit)
     }
 
 }

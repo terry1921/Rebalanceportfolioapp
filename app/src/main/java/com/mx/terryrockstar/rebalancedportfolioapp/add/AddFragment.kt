@@ -14,6 +14,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddGroupB
 import com.mx.terryrockstar.rebalancedportfolioapp.groups.FROM_GROUP
 import com.mx.terryrockstar.rebalancedportfolioapp.home.FROM_HOME
 import com.mx.terryrockstar.rebalancedportfolioapp.settings.CURRENCY_PREFERENCE
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.EventObserver
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.Preferences
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.getViewModelFactory
 
@@ -71,7 +72,17 @@ class AddFragment : Fragment() {
     }
 
     private fun initGroupUI() {
-        // component seekbar allocation
+        setupSeekBarAllocation()
+        setupNavigation()
+    }
+
+    private fun setupNavigation() {
+        viewModel.groupUpdateEvent.observe(viewLifecycleOwner, EventObserver {
+            activity?.onBackPressed()
+        })
+    }
+
+    private fun setupSeekBarAllocation() {
         bindingGroup.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 bindingGroup.allocation.setText(progress.toString())
