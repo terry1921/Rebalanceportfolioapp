@@ -19,10 +19,6 @@ class GroupsViewModel(
     private val _isGroupsObtained = MutableLiveData<Boolean>()
     val isGroupsObtained: LiveData<Boolean> = _isGroupsObtained
 
-    init {
-        // loadGroups(true)
-    }
-
     fun loadGroups(forceUpdate: Boolean) {
         viewModelScope.launch {
             _isGroupsObtained.value = false
