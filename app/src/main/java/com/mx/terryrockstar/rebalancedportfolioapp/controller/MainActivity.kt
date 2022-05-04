@@ -35,14 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavMenu(navController)
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, arg ->
             val dest: String = try {
                 resources.getResourceName(destination.id)
             } catch (e: Resources.NotFoundException) {
                 Print.e(javaClass.name, e.message, e.cause)
                 destination.id.toString()
             }
-            Print.d("MainActivity", "Navigated to $dest")
+            Print.d("MainActivity", "Navigated to $dest args: $arg")
         }
 
     }

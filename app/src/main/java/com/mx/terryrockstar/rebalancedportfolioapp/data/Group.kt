@@ -26,11 +26,20 @@ data class Group(
     }
 
     fun getTarget() : String {
+        return "${getTargetNumber()}%"
+    }
+
+    fun getTargetNumber() : String {
         val target = if (targetAllocation % 1 == 0.0f) {
             targetAllocation.roundToInt().toString()
         } else {
             targetAllocation.toString()
         }
-        return "$target%"
+        return target
     }
+
+    fun getTargetInt() : Int {
+        return targetAllocation.roundToInt()
+    }
+
 }

@@ -10,6 +10,7 @@
     <string name="home">Inicio</string>
     <string name="groups">Grupos</string>
     <string name="add">Agregar</string>
+    <string name="edit">Editar</string>
     <string name="no_assets_hint">Agregue uno usando la opción de menú \'agregar\'</string>
     <string name="no_assets">No hay activos</string>
     <string name="setting">Ajustes</string>

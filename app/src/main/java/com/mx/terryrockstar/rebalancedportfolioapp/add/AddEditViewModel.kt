@@ -22,12 +22,13 @@ class AddEditViewModel(
     private val _items = MutableLiveData<List<Group>>().apply { value = emptyList() }
     val items: LiveData<List<Group>> = _items
 
+    private val _group = MutableLiveData<Group>().apply { value }
+    val group: LiveData<Group> = _group
+
     private val _groupUpdateEvent = MutableLiveData<Event<Unit>>()
     val groupUpdateEvent: LiveData<Event<Unit>> = _groupUpdateEvent
 
-    init {
-        //loadGroups(true)
-    }
+    private var isDataLoaded = false
 
     fun loadGroups(forceUpdate: Boolean) {
         viewModelScope.launch {
@@ -51,6 +52,27 @@ class AddEditViewModel(
     fun saveGroup(group: Group) = viewModelScope.launch {
         saveGroupUseCase(group)
         _groupUpdateEvent.value = Event(Unit)
+    }
+
+    fun startGroup(groupId: Long) {
+        if (isDataLoaded) {
+            // No need to populate, already have data.
+            return
+        }
+
+        viewModelScope.launch {
+            getGroupUseCase(groupId).let { result ->
+                if (result is Result.Success) {
+                    onGroupLoaded(result.data)
+                }
+            }
+        }
+
+    }
+
+    private fun onGroupLoaded(group: Group) {
+        _group.value = group
+        isDataLoaded = true
     }
 
 }

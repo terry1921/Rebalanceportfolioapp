@@ -48,6 +48,11 @@
             app:argType="integer"
             android:defaultValue="1" />
 
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+
     </fragment>
 
     <fragment

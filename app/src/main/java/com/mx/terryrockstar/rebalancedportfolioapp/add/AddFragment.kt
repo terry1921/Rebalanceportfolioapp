@@ -11,6 +11,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.data.Asset
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddAssetBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddGroupBinding
+import com.mx.terryrockstar.rebalancedportfolioapp.groups.DEFAULT_GROUP_ID
 import com.mx.terryrockstar.rebalancedportfolioapp.groups.FROM_GROUP
 import com.mx.terryrockstar.rebalancedportfolioapp.home.FROM_HOME
 import com.mx.terryrockstar.rebalancedportfolioapp.settings.CURRENCY_PREFERENCE
@@ -29,20 +30,23 @@ class AddFragment : Fragment() {
     private val bindingAsset get() = _bindingAsset!!
     private val bindingGroup get() = _bindingGroup!!
 
+    private val safeArgs: AddFragmentArgs by navArgs()
+
     private val viewModel by viewModels<AddEditViewModel> { getViewModelFactory() }
 
     private var isFrom: Int = 0
+    private var id: Long = DEFAULT_GROUP_ID
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
-        val safeArgs: AddFragmentArgs by navArgs()
+
         isFrom = safeArgs.from
+        id = safeArgs.id
 
         return when (isFrom) {
             FROM_HOME -> {
                 val view = inflater.inflate(R.layout.fragment_add_asset, container, false)
-
                 _bindingAsset = FragmentAddAssetBinding.bind(view).apply {
                     this.viewmodel = viewModel
                 }
@@ -92,6 +96,15 @@ class AddFragment : Fragment() {
     private fun initGroupUI() {
         setupSeekBarAllocation(FROM_GROUP)
         setupNavigation()
+        if (id != DEFAULT_GROUP_ID) {
+            viewModel.startGroup(id)
+            viewModel.group.observe(viewLifecycleOwner) { group ->
+                bindingGroup.name.setText(group.name)
+                bindingGroup.note.setText(group.note)
+                bindingGroup.seekbar.progress = group.getTargetInt()
+                bindingGroup.allocation.setText(group.getTargetNumber())
+            }
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentGroupsBinding
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.EventObserver
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.Print
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.getViewModelFactory
 
@@ -25,7 +26,7 @@ class GroupsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View {
         _binding = FragmentGroupsBinding.inflate(inflater, container, false).apply {
             this.viewmodel = viewModel
         }
@@ -47,13 +48,34 @@ class GroupsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.lifecycleOwner = viewLifecycleOwner
         setupGroupAdapter()
         setupShowListGroups()
+        setupNavigation()
         viewModel.loadGroups(true)
     }
 
+    /**
+     * > The `viewModel.openGroupEvent` is observed by the `viewLifecycleOwner` and when the event is
+     * triggered, the `openGroupDetails` function is called
+     */
+    private fun setupNavigation() {
+        viewModel.openGroupEvent.observe(viewLifecycleOwner, EventObserver(this::openGroupDetails))
+    }
+
+    /**
+     * > This function navigates to the AddFragment, passing in the groupId and the FROM_GROUP constant
+     *
+     * @param groupId The id of the group to open
+     */
+    private fun openGroupDetails(groupId: Long) {
+        val action = GroupsFragmentDirections.actionAdd(FROM_GROUP, groupId)
+        findNavController().navigate(action)
+    }
+
+    /**
+     * > If the groups are obtained, then setup the list of groups, otherwise setup the empty groups
+     */
     private fun setupShowListGroups() {
         viewModel.isGroupsObtained.observe(viewLifecycleOwner) { isGroupsObtained ->
             if (isGroupsObtained) {
@@ -64,6 +86,10 @@ class GroupsFragment : Fragment() {
         }
     }
 
+    /**
+     * `setupGroupAdapter()` sets up the `GroupAdapter` for the `RecyclerView` in the `Fragment`'s
+     * layout
+     */
     private fun setupGroupAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
@@ -74,11 +100,19 @@ class GroupsFragment : Fragment() {
         }
     }
 
+    /**
+     * If there are no groups, hide the groups container and show the no data container
+     */
     private fun setupEmptyGroups() {
+        binding.groupsContainer.visibility = View.GONE
         binding.noData.root.visibility = View.VISIBLE
         binding.noData.titleNoData.text = getString(R.string.no_groups)
     }
 
+    /**
+     * `setupListGroups()` is a private function that sets the visibility of the `noData` and
+     * `groupsContainer` views to `View.GONE` and `View.VISIBLE` respectively
+     */
     private fun setupListGroups() {
         binding.noData.root.visibility = View.GONE
         binding.groupsContainer.visibility = View.VISIBLE
@@ -87,3 +121,4 @@ class GroupsFragment : Fragment() {
 }
 
 const val FROM_GROUP = 2
+const val DEFAULT_GROUP_ID = -1L

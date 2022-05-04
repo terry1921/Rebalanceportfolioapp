@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Success
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.GetGroupsUseCase
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.Event
 import kotlinx.coroutines.launch
 
 class GroupsViewModel(
@@ -18,6 +19,9 @@ class GroupsViewModel(
 
     private val _isGroupsObtained = MutableLiveData<Boolean>()
     val isGroupsObtained: LiveData<Boolean> = _isGroupsObtained
+
+    private val _openGroupEvent = MutableLiveData<Event<Long>>()
+    val openGroupEvent: LiveData<Event<Long>> = _openGroupEvent
 
     fun loadGroups(forceUpdate: Boolean) {
         viewModelScope.launch {
@@ -34,7 +38,7 @@ class GroupsViewModel(
     }
 
     fun openGroup(groupId: Long) {
-
+        _openGroupEvent.value = Event(groupId)
     }
 
 }
