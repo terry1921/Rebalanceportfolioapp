@@ -37,7 +37,8 @@ class ViewModelFactory constructor(
                             GetAssetUseCase(repository),
                             GetGroupsUseCase(repository),
                             SaveGroupUseCase(repository),
-                            SaveAssetUseCase(repository)
+                            SaveAssetUseCase(repository),
+                            UpdateGroupUseCase(repository)
                         )
                     isAssignableFrom(GroupsViewModel::class.java) ->
                         GroupsViewModel(GetGroupsUseCase(repository))

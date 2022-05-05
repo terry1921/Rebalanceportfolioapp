@@ -35,6 +35,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_edit"
+            app:destination="@+id/edit_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
@@ -51,7 +59,25 @@
         <argument
             android:name="id"
             app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="0L" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/edit_dest"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddFragment"
+        android:label="@string/edit"
+        tools:layout="@layout/fragment_add_group" >
+
+        <argument
+            android:name="from"
+            app:argType="integer"
+            android:defaultValue="1" />
+
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="0L" />
 
     </fragment>
 

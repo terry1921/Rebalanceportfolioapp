@@ -23,20 +23,32 @@ class GroupsViewModel(
     private val _openGroupEvent = MutableLiveData<Event<Long>>()
     val openGroupEvent: LiveData<Event<Long>> = _openGroupEvent
 
-    fun loadGroups(forceUpdate: Boolean) {
-        viewModelScope.launch {
-            _isGroupsObtained.value = false
-            val result = getGroupsUseCase(forceUpdate)
+    /**
+     * > It launches a coroutine in the viewModelScope, which calls the getGroupsUseCase, and if the
+     * result is successful, it sets the items to the result data, and sets the isGroupsObtained to
+     * true
+     *
+     * @param forceUpdate Boolean - if true, the data will be loaded from the server, otherwise from
+     * the cache.
+     */
+    fun loadGroups(forceUpdate: Boolean) = viewModelScope.launch {
+        _isGroupsObtained.value = false
+        val result = getGroupsUseCase(forceUpdate)
 
-            if (result is Success && result.data.isNotEmpty()) {
-                _items.value = result.data
-                _isGroupsObtained.value = true
-            } else {
-                _items.value = emptyList()
-            }
+        if (result is Success && result.data.isNotEmpty()) {
+            _items.value = result.data
+            _isGroupsObtained.value = true
+        } else {
+            _items.value = emptyList()
         }
     }
 
+    /**
+     * > The function `openGroup` sets the value of the `_openGroupEvent` variable to an Event object
+     * that contains the groupId
+     *
+     * @param groupId The id of the group to open.
+     */
     fun openGroup(groupId: Long) {
         _openGroupEvent.value = Event(groupId)
     }

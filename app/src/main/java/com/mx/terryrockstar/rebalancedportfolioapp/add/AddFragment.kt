@@ -11,13 +11,8 @@ import com.mx.terryrockstar.rebalancedportfolioapp.data.Asset
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddAssetBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentAddGroupBinding
-import com.mx.terryrockstar.rebalancedportfolioapp.groups.DEFAULT_GROUP_ID
-import com.mx.terryrockstar.rebalancedportfolioapp.groups.FROM_GROUP
-import com.mx.terryrockstar.rebalancedportfolioapp.home.FROM_HOME
 import com.mx.terryrockstar.rebalancedportfolioapp.settings.CURRENCY_PREFERENCE
-import com.mx.terryrockstar.rebalancedportfolioapp.utils.EventObserver
-import com.mx.terryrockstar.rebalancedportfolioapp.utils.Preferences
-import com.mx.terryrockstar.rebalancedportfolioapp.utils.getViewModelFactory
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.*
 
 /**
  * A simple [Fragment] subclass.
@@ -34,8 +29,8 @@ class AddFragment : Fragment() {
 
     private val viewModel by viewModels<AddEditViewModel> { getViewModelFactory() }
 
-    private var isFrom: Int = 0
-    private var id: Long = DEFAULT_GROUP_ID
+    private var isFrom: Int = FROM_DEFAULT
+    private var id: Long = DEFAULT_ID
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
@@ -45,33 +40,27 @@ class AddFragment : Fragment() {
         id = safeArgs.id
 
         return when (isFrom) {
-            FROM_HOME -> {
-                val view = inflater.inflate(R.layout.fragment_add_asset, container, false)
-                _bindingAsset = FragmentAddAssetBinding.bind(view).apply {
-                    this.viewmodel = viewModel
-                }
-                bindingAsset.root
-            }
-            else -> {
+            FROM_GROUP -> {
                 val view = inflater.inflate(R.layout.fragment_add_group, container, false)
                 _bindingGroup = FragmentAddGroupBinding.bind(view).apply {
                     viewmodel = viewModel
                 }
                 bindingGroup.root
             }
+            else -> {
+                val view = inflater.inflate(R.layout.fragment_add_asset, container, false)
+                _bindingAsset = FragmentAddAssetBinding.bind(view).apply {
+                    this.viewmodel = viewModel
+                }
+                bindingAsset.root
+            }
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        if (isFrom == FROM_HOME) {
-            initAssetUI()
-        }
-        if (isFrom == FROM_GROUP) {
-            initGroupUI()
-        }
-
+    override fun onResume() {
+        super.onResume()
+        if (isFrom == FROM_HOME) initAssetUI()
+        if (isFrom == FROM_GROUP) initGroupUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,11 +69,9 @@ class AddFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.check) {
-            if (isFrom == FROM_HOME) {
-                saveAsset()
-            }
-            if (isFrom == FROM_GROUP) {
-                saveGroup()
+            when(isFrom) {
+                FROM_HOME -> saveAsset()
+                FROM_GROUP -> saveGroup()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -96,7 +83,7 @@ class AddFragment : Fragment() {
     private fun initGroupUI() {
         setupSeekBarAllocation(FROM_GROUP)
         setupNavigation()
-        if (id != DEFAULT_GROUP_ID) {
+        if (id != DEFAULT_ID) {
             viewModel.startGroup(id)
             viewModel.group.observe(viewLifecycleOwner) { group ->
                 bindingGroup.name.setText(group.name)
@@ -176,27 +163,33 @@ class AddFragment : Fragment() {
         viewModel.loadGroups(true)
     }
 
+    private fun getDataGroup() : Group? {
+        val name = bindingGroup.name.text.toString()
+        if (name.isEmpty()) {
+            bindingGroup.name.error = getString(R.string.required)
+            bindingGroup.name.requestFocus()
+            return null
+        }
+        var allocation = bindingGroup.allocation.text.toString()
+        if (allocation.isEmpty()) {
+            allocation = getString(R.string.zero)
+        }
+        val note = bindingGroup.note.text.toString()
+
+        return Group(id, name, allocation.toFloat(), note)
+    }
+
     /**
      * > The function saves a group to the database
      *
      * @return A group object is being returned.
      */
     private fun saveGroup() {
-        val name = bindingGroup.name.text.toString()
-        var allocation = bindingGroup.allocation.text.toString()
-        val note = bindingGroup.note.text.toString()
-
-        if (name.isEmpty()) {
-            bindingGroup.name.error = getString(R.string.required)
-            bindingGroup.name.requestFocus()
+        val group = getDataGroup() ?: return
+        if (id != DEFAULT_ID) {
+            viewModel.updateGroup(group)
             return
         }
-
-        if (allocation.isEmpty()) {
-            allocation = getString(R.string.zero)
-        }
-
-        val group = Group(name, allocation.toFloat(), note)
         viewModel.saveGroup(group)
     }
 

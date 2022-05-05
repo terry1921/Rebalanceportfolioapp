@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentGroupsBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.EventObserver
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.FROM_GROUP
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.Print
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.getViewModelFactory
 
@@ -34,18 +35,6 @@ class GroupsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.add) {
-            val action = GroupsFragmentDirections.actionAdd(FROM_GROUP)
-            findNavController().navigate(action)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -53,6 +42,18 @@ class GroupsFragment : Fragment() {
         setupShowListGroups()
         setupNavigation()
         viewModel.loadGroups(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.add) {
+            val action = GroupsFragmentDirections.actionAdd(FROM_GROUP)
+            findNavController().navigate(action)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     /**
@@ -69,7 +70,7 @@ class GroupsFragment : Fragment() {
      * @param groupId The id of the group to open
      */
     private fun openGroupDetails(groupId: Long) {
-        val action = GroupsFragmentDirections.actionAdd(FROM_GROUP, groupId)
+        val action = GroupsFragmentDirections.actionEdit(FROM_GROUP, groupId)
         findNavController().navigate(action)
     }
 
@@ -119,6 +120,3 @@ class GroupsFragment : Fragment() {
     }
 
 }
-
-const val FROM_GROUP = 2
-const val DEFAULT_GROUP_ID = -1L

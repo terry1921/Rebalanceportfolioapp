@@ -16,7 +16,8 @@ class AddEditViewModel(
     private val getAssetUseCase: GetAssetUseCase,
     private val getGroupsUseCase: GetGroupsUseCase,
     private val saveGroupUseCase: SaveGroupUseCase,
-    private val saveAssetUseCase: SaveAssetUseCase
+    private val saveAssetUseCase: SaveAssetUseCase,
+    private val updateGroupUseCase: UpdateGroupUseCase
 ) : ViewModel() {
 
     private val _items = MutableLiveData<List<Group>>().apply { value = emptyList() }
@@ -28,25 +29,19 @@ class AddEditViewModel(
     private val _groupUpdateEvent = MutableLiveData<Event<Unit>>()
     val groupUpdateEvent: LiveData<Event<Unit>> = _groupUpdateEvent
 
-    private var isDataLoaded = false
+    fun loadGroups(forceUpdate: Boolean) = viewModelScope.launch {
+        val result = getGroupsUseCase(forceUpdate)
+        val list = mutableListOf<Group>()
+        list.add(Group(0L, "Otros", 0.0f))
 
-    fun loadGroups(forceUpdate: Boolean) {
-        viewModelScope.launch {
-            val result = getGroupsUseCase(forceUpdate)
-            val list = mutableListOf<Group>()
-            list.add(Group(-1, "Otros", 0.0f))
-
-            if (result is Result.Success && result.data.isNotEmpty()) {
-                list.addAll(result.data)
-            }
-            _items.postValue(list)
+        if (result is Result.Success && result.data.isNotEmpty()) {
+            list.addAll(result.data)
         }
+        _items.postValue(list)
     }
 
-    fun saveAsset(asset: Asset) {
-        viewModelScope.launch {
-            saveAssetUseCase(asset)
-        }
+    fun saveAsset(asset: Asset) = viewModelScope.launch {
+        saveAssetUseCase(asset)
     }
 
     fun saveGroup(group: Group) = viewModelScope.launch {
@@ -54,25 +49,21 @@ class AddEditViewModel(
         _groupUpdateEvent.value = Event(Unit)
     }
 
-    fun startGroup(groupId: Long) {
-        if (isDataLoaded) {
-            // No need to populate, already have data.
-            return
-        }
+    fun updateGroup(group: Group) = viewModelScope.launch {
+        updateGroupUseCase(group)
+        _groupUpdateEvent.value = Event(Unit)
+    }
 
-        viewModelScope.launch {
-            getGroupUseCase(groupId).let { result ->
-                if (result is Result.Success) {
-                    onGroupLoaded(result.data)
-                }
+    fun startGroup(groupId: Long) = viewModelScope.launch {
+        getGroupUseCase(groupId).let { result ->
+            if (result is Result.Success) {
+                onGroupLoaded(result.data)
             }
         }
-
     }
 
     private fun onGroupLoaded(group: Group) {
         _group.value = group
-        isDataLoaded = true
     }
 
 }

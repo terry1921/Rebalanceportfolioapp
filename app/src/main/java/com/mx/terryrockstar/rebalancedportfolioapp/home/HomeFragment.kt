@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentHomeBinding
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.FROM_HOME
 
 /**
  * A simple [Fragment] subclass.
@@ -52,5 +53,3 @@ class HomeFragment : Fragment() {
     }
 
 }
-
-const val FROM_HOME = 1
