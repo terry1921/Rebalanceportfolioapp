@@ -37,5 +37,6 @@
     <string name="percent_label">%</string>
     <string name="required">Requerido</string>
     <string name="target">Objetivo</string>
+    <string name="_100">100</string>
 
 </resources>

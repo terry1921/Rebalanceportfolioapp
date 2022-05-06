@@ -47,9 +47,9 @@
 
     <fragment
         android:id="@+id/add_dest"
-        android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddEditFragment"
         android:label="@string/add"
-        tools:layout="@layout/fragment_add_group" >
+        tools:layout="@layout/fragment_add_edit" >
 
         <argument
             android:name="from"
@@ -65,9 +65,9 @@
 
     <fragment
         android:id="@+id/edit_dest"
-        android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddFragment"
+        android:name="com.mx.terryrockstar.rebalancedportfolioapp.add.AddEditFragment"
         android:label="@string/edit"
-        tools:layout="@layout/fragment_add_group" >
+        tools:layout="@layout/fragment_add_edit" >
 
         <argument
             android:name="from"
