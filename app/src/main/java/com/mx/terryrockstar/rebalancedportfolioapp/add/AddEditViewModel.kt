@@ -26,8 +26,8 @@ class AddEditViewModel(
     private val _group = MutableLiveData<Group>().apply { value }
     val group: LiveData<Group> = _group
 
-    private val _groupUpdateEvent = MutableLiveData<Event<Unit>>()
-    val groupUpdateEvent: LiveData<Event<Unit>> = _groupUpdateEvent
+    private val _updateEvent = MutableLiveData<Event<Unit>>()
+    val updateEvent: LiveData<Event<Unit>> = _updateEvent
 
     fun loadGroups(forceUpdate: Boolean) = viewModelScope.launch {
         val result = getGroupsUseCase(forceUpdate)
@@ -42,16 +42,17 @@ class AddEditViewModel(
 
     fun saveAsset(asset: Asset) = viewModelScope.launch {
         saveAssetUseCase(asset)
+        _updateEvent.value = Event(Unit)
     }
 
     fun saveGroup(group: Group) = viewModelScope.launch {
         saveGroupUseCase(group)
-        _groupUpdateEvent.value = Event(Unit)
+        _updateEvent.value = Event(Unit)
     }
 
     fun updateGroup(group: Group) = viewModelScope.launch {
         updateGroupUseCase(group)
-        _groupUpdateEvent.value = Event(Unit)
+        _updateEvent.value = Event(Unit)
     }
 
     fun startGroup(groupId: Long) = viewModelScope.launch {

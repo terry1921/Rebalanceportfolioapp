@@ -84,29 +84,6 @@ class AddEditFragment : Fragment() {
     }
 
     /**
-     * > This function adds a TextWatcher to the EditText and updates the SeekBar's progress when the
-     * EditText's text changes
-     */
-    private fun setupAllocationSeekBar() {
-        binding.allocation.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-            override fun afterTextChanged(s: Editable?) {
-                s?.let { number ->
-                    if (number.isNotEmpty()) {
-                        val progress = number.toString().toFloat().roundToInt()
-                        if (progress > 100) {
-                            binding.allocation.setText(getString(R.string._100))
-                        }
-                        binding.seekbar.progress = progress
-                        binding.allocation.setSelection(number.length)
-                    }
-                }
-            }
-        })
-    }
-
-    /**
      * > Create/Edit Asset UI
      */
     private fun initAssetUI() {
@@ -114,6 +91,7 @@ class AddEditFragment : Fragment() {
         setupCurrency()
         setupSeekBarAllocation()
         setupAllocationSeekBar()
+        setupNavigation()
         setupPopulateGroupSpinner()
     }
 
@@ -153,11 +131,34 @@ class AddEditFragment : Fragment() {
     }
 
     /**
+     * > This function adds a TextWatcher to the EditText and updates the SeekBar's progress when the
+     * EditText's text changes
+     */
+    private fun setupAllocationSeekBar() {
+        binding.allocation.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+            override fun afterTextChanged(s: Editable?) {
+                s?.let { number ->
+                    if (number.isNotEmpty()) {
+                        val progress = number.toString().toFloat().roundToInt()
+                        if (progress > 100) {
+                            binding.allocation.setText(getString(R.string._100))
+                        }
+                        binding.seekbar.progress = progress
+                        binding.allocation.setSelection(number.length)
+                    }
+                }
+            }
+        })
+    }
+
+    /**
      * > Observe the `groupUpdateEvent` LiveData object and when it changes, call the `onBackPressed`
      * function on the activity
      */
     private fun setupNavigation() {
-        viewModel.groupUpdateEvent.observe(viewLifecycleOwner, EventObserver {
+        viewModel.updateEvent.observe(viewLifecycleOwner, EventObserver {
             activity?.onBackPressed()
         })
     }
