@@ -6,6 +6,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.data.Result
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Error
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Success
 import com.mx.terryrockstar.rebalancedportfolioapp.data.source.DataSource
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.Print
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,6 +20,7 @@ class LocalDataSource internal constructor(
         return@withContext try {
             Success(assetsDao.getAssets())
         } catch (e: Exception) {
+            Print.e(javaClass.name, e.message, e.cause)
             Error(e)
         }
     }
@@ -32,6 +34,7 @@ class LocalDataSource internal constructor(
                 return@withContext Error(Exception("Asset not found"))
             }
         } catch (e: Exception) {
+            Print.e(javaClass.name, e.message, e.cause)
             return@withContext Error(e)
         }
     }
@@ -58,6 +61,7 @@ class LocalDataSource internal constructor(
         return@withContext try {
             Success(assetsDao.getGroups())
         } catch (e: java.lang.Exception) {
+            Print.e(javaClass.name, e.message, e.cause)
             Error(e)
         }
     }
@@ -71,6 +75,7 @@ class LocalDataSource internal constructor(
                 return@withContext Error(java.lang.Exception("Group not found"))
             }
         } catch (e: java.lang.Exception) {
+            Print.e(javaClass.name, e.message, e.cause)
             return@withContext Error(e)
         }
     }

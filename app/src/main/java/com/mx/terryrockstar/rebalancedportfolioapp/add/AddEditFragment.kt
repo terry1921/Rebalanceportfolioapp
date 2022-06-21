@@ -159,6 +159,7 @@ class AddEditFragment : Fragment() {
      */
     private fun setupNavigation() {
         viewModel.updateEvent.observe(viewLifecycleOwner, EventObserver {
+            Preferences().setPreference(ON_EDIT, EDITED)
             activity?.onBackPressed()
         })
     }

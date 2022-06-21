@@ -5,6 +5,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.data.Group
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Error
 import com.mx.terryrockstar.rebalancedportfolioapp.data.Result.Success
+import com.mx.terryrockstar.rebalancedportfolioapp.utils.ERROR_FETCHING_LOCAL
 import kotlinx.coroutines.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
@@ -22,7 +23,7 @@ class DefaultRepository(
             // Respond immediately with cache if available and not dirty
             if (!forceUpdate) {
                 cachedAssets?.let { cachedAssets ->
-                    return@withContext Success(cachedAssets.values.sortedBy { it.name })
+                    return@withContext Success(cachedAssets.values.sortedBy { it.groupId })
                 }
             }
 
@@ -32,7 +33,7 @@ class DefaultRepository(
             (newAssets as? Success)?.let { refreshAssetCache(it.data) }
 
             cachedAssets?.values?.let { assets ->
-                return@withContext Success(assets.sortedBy { it.name })
+                return@withContext Success(assets.sortedBy { it.groupId })
             }
 
             (newAssets as? Success)?.let {
@@ -191,18 +192,18 @@ class DefaultRepository(
         // Local
         val localAssets = localDataSource.getAssets()
         if (localAssets is Success) return localAssets
-        return Error(Exception("Error fetching from local"))
+        return Error(Exception(ERROR_FETCHING_LOCAL))
     }
 
     private suspend fun fetchAssetsFromLocal(assetId: Long) : Result<Asset> {
         val localAsset = localDataSource.getAsset(assetId)
         if (localAsset is Success) return localAsset
-        return Error(Exception("Error fetching from local"))
+        return Error(Exception(ERROR_FETCHING_LOCAL))
     }
 
     private fun refreshAssetCache(data: List<Asset>) {
         cachedAssets?.clear()
-        data.sortedBy { it.name }.forEach {
+        data.sortedBy { it.groupId }.forEach {
             assetCacheAndPerform(it) {}
         }
     }
@@ -234,13 +235,13 @@ class DefaultRepository(
         // Local
         val localGroups = localDataSource.getGroups()
         if (localGroups is Success) return localGroups
-        return Error(Exception("Error fetching from local"))
+        return Error(Exception(ERROR_FETCHING_LOCAL))
     }
 
     private suspend fun fetchGroupsFromLocal(groupId: Long) : Result<Group> {
         val localGroup = localDataSource.getGroup(groupId)
         if (localGroup is Success) return localGroup
-        return Error(Exception("Error fetching from local"))
+        return Error(Exception(ERROR_FETCHING_LOCAL))
     }
 
     private fun refreshGroupCache(data: List<Group>) {

@@ -40,25 +40,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/groups"
-                style="@style/TextTitle.Medium"
-                android:textColor="@color/lynch"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleTarget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/target"
-                style="@style/TextTitle.Medium"
-                android:textColor="@color/lynch"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            <include
+                android:id="@+id/headerGroups"
+                layout="@layout/fragment_groups_header" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/groupList"
@@ -70,7 +54,7 @@
                 app:items="@{viewmodel.items}"
                 tools:listitem="@layout/item_group"
                 android:layout_marginTop="@dimen/margin_8"
-                app:layout_constraintTop_toBottomOf="@+id/titleGroup"
+                app:layout_constraintTop_toBottomOf="@+id/headerGroups"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />

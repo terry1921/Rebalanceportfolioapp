@@ -13,7 +13,7 @@ interface AppDao {
      *
      * @return all asset
      */
-    @Query("SELECT * FROM assets")
+    @Query("SELECT * FROM assets ORDER BY group_id ASC")
     suspend fun getAssets(): List<Asset>
 
     /**

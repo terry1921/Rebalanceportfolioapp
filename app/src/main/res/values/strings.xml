@@ -38,5 +38,7 @@
     <string name="required">Requerido</string>
     <string name="target">Objetivo</string>
     <string name="_100">100</string>
+    <string name="asset">Activo</string>
+    <string name="amount">Monto</string>
 
 </resources>

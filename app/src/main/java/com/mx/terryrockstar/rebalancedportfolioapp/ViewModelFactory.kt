@@ -21,6 +21,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.add.AddEditViewModel
 import com.mx.terryrockstar.rebalancedportfolioapp.data.source.Repository
 import com.mx.terryrockstar.rebalancedportfolioapp.domain.*
 import com.mx.terryrockstar.rebalancedportfolioapp.groups.GroupsViewModel
+import com.mx.terryrockstar.rebalancedportfolioapp.home.AssetsViewModel
 
 /**
  * Factory for all ViewModels.
@@ -42,6 +43,9 @@ class ViewModelFactory constructor(
                         )
                     isAssignableFrom(GroupsViewModel::class.java) ->
                         GroupsViewModel(GetGroupsUseCase(repository))
+                    isAssignableFrom(AssetsViewModel::class.java) ->
+                        AssetsViewModel(GetAssetsUseCase(repository),
+                        GetGroupUseCase(repository))
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
                 }

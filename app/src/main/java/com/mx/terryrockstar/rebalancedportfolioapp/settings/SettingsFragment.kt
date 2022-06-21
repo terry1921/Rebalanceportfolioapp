@@ -14,7 +14,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
         val listener = Preference.OnPreferenceChangeListener { preference, newValue ->
-            Print.d("preference: $preference newValue: $newValue")
+            Print.i("preference: $preference newValue: $newValue")
             Preferences().setPreference(CURRENCY_PREFERENCE, newValue.toString())
             true
         }
