@@ -22,6 +22,8 @@ import kotlin.math.roundToInt
  */
 class AddEditFragment : Fragment() {
 
+    private lateinit var myAdapter: BindableSpinnerAdapter
+    private var asset: Asset? = null
     private var _binding: FragmentAddEditBinding? = null
     private val binding get() = _binding!!
 
@@ -88,11 +90,12 @@ class AddEditFragment : Fragment() {
      */
     private fun initAssetUI() {
         setupView(FROM_HOME)
+        setupPopulateGroupSpinner()
         setupCurrency()
         setupSeekBarAllocation()
         setupAllocationSeekBar()
         setupNavigation()
-        setupPopulateGroupSpinner()
+        setupLoadAsset()
     }
 
     /**
@@ -194,7 +197,7 @@ class AddEditFragment : Fragment() {
      * view model
      */
     private fun setupPopulateGroupSpinner() {
-        val myAdapter = BindableSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, mutableListOf())
+        myAdapter = BindableSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, mutableListOf())
         binding.groups.apply {
             adapter = myAdapter
         }
@@ -202,8 +205,50 @@ class AddEditFragment : Fragment() {
             data?.forEach {
                 myAdapter.add(it)
             }
+            if (id != DEFAULT_ID && data.isNotEmpty()) {
+                asset?.let {
+                    selectGroupByAsset(it.groupId)
+                }
+            }
         }
         viewModel.loadGroups(true)
+    }
+
+    /**
+     * > If the id is not the default id, then start the asset and observe the asset
+     */
+    private fun setupLoadAsset() {
+        if (id != DEFAULT_ID) {
+            viewModel.startAsset(id)
+            viewModel.asset.observe(viewLifecycleOwner) {
+                this.asset = it
+                fillAssetForm(it)
+            }
+        }
+    }
+
+    /**
+     * > This function takes an asset object and fills the form with the asset's data
+     *
+     * @param asset Asset - the asset object that is being edited
+     */
+    private fun fillAssetForm(asset: Asset) {
+        binding.name.setText(asset.name)
+        binding.note.setText(asset.note)
+        binding.mount.setText(asset.getMountString())
+        binding.seekbar.progress = asset.getTargetInt()
+        binding.allocation.setText(asset.getTargetNumber())
+    }
+
+    /**
+     * > The function takes a groupId as a parameter, finds the position of the groupId in the adapter,
+     * and then sets the selection of the spinner to that position
+     *
+     * @param groupId The id of the group you want to select.
+     */
+    private fun selectGroupByAsset(groupId: Long) {
+        val position = myAdapter.getPosition(groupId)
+        binding.groups.setSelection(position)
     }
 
     /**

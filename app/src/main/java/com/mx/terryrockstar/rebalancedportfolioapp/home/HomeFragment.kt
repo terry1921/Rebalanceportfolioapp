@@ -78,14 +78,28 @@ class HomeFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * > The `viewModel.openAssetEvent` is observed by the `viewLifecycleOwner` and when the event is
+     * triggered, the `openAssetDetails` function is called
+     */
     private fun setupNavigation() {
         viewModel.openAssetEvent.observe(viewLifecycleOwner, EventObserver(this::openAssetDetails))
     }
 
+    /**
+     * > This function is called when the user clicks on an asset in the list. It navigates to the
+     * asset details screen
+     *
+     * @param assetId The id of the asset to be opened.
+     */
     private fun openAssetDetails(assetId: Long) {
-        Print.i("assetId: $assetId")
+        val action = HomeFragmentDirections.actionEdit(FROM_HOME, assetId)
+        findNavController().navigate(action)
     }
 
+    /**
+     * > This function sets up the adapter for the RecyclerView
+     */
     private fun setupAssetAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
@@ -99,6 +113,9 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * > If the assets are obtained, then setup the list groups, otherwise setup the empty assets
+     */
     private fun setupShowListAssets() {
         viewModel.isAssetsObtained.observe(viewLifecycleOwner) { isAssetsObtained ->
             if (isAssetsObtained) {
@@ -109,11 +126,17 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * `setupListGroups()` is a private function that sets up the list groups
+     */
     private fun setupListGroups() {
         binding.noData.root.visibility = View.GONE
         binding.assetsContainer.visibility = View.VISIBLE
     }
 
+    /**
+     * If the assets list is empty, hide the assets container and show the no data container
+     */
     private fun setupEmptyAssets() {
         binding.assetsContainer.visibility = View.GONE
         binding.noData.root.visibility = View.VISIBLE
