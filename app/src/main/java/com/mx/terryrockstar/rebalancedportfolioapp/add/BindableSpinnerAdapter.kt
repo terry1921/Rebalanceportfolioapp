@@ -19,7 +19,16 @@ class BindableSpinnerAdapter(context: Context, textViewResourceId: Int, private 
 
     override fun getItem(position: Int) = values[position]
 
-    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemId(position: Int) = values[position].id
+
+    fun getPosition(id: Long): Int {
+        for (value in values) {
+            if (value.id == id) {
+                return super.getPosition(value)
+            }
+        }
+        return 0
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val label = super.getView(position, convertView, parent) as TextView

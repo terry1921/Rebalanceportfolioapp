@@ -44,7 +44,7 @@ class AssetsViewModel(
             val result = getGroupUseCase(asset.groupId)
 
             if (result is Result.Success && result.data.name.isNotEmpty()) {
-                val titleAsset = Asset(-1L,result.data.name, result.data.targetAllocation)
+                val titleAsset = Asset(-1L, result.data.name, result.data.targetAllocation)
                 if (!list.contains(titleAsset)) {
                     list.add(titleAsset)
                 }

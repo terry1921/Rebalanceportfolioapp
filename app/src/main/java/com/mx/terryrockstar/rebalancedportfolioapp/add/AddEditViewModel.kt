@@ -26,6 +26,9 @@ class AddEditViewModel(
     private val _group = MutableLiveData<Group>().apply { value }
     val group: LiveData<Group> = _group
 
+    private val _asset = MutableLiveData<Asset>().apply { value }
+    val asset: LiveData<Asset> = _asset
+
     private val _updateEvent = MutableLiveData<Event<Unit>>()
     val updateEvent: LiveData<Event<Unit>> = _updateEvent
 
@@ -63,8 +66,20 @@ class AddEditViewModel(
         }
     }
 
+    fun startAsset(assetId: Long) = viewModelScope.launch {
+        getAssetUseCase(assetId).let { result ->
+            if (result is Result.Success) {
+                onAssetLoaded(result.data)
+            }
+        }
+    }
+
     private fun onGroupLoaded(group: Group) {
         _group.value = group
+    }
+
+    private fun onAssetLoaded(asset: Asset) {
+        _asset.value = asset
     }
 
 }

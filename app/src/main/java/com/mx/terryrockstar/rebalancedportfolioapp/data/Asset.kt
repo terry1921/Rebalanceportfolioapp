@@ -38,7 +38,11 @@ data class Asset(
         return "${getTargetNumber()}%"
     }
 
-    private fun getTargetNumber() : String {
+    fun getTargetInt() : Int {
+        return targetAllocation.roundToInt()
+    }
+
+    fun getTargetNumber() : String {
         val target = if (targetAllocation % 1 == 0.0f) {
             targetAllocation.roundToInt().toString()
         } else {
@@ -50,6 +54,10 @@ data class Asset(
     fun getMountCurrency(): String {
         val formatter: NumberFormat = DecimalFormat("#,###.##")
         return "$${formatter.format(amount)}"
+    }
+
+    fun getMountString(): String {
+        return "$amount"
     }
 
     fun getTitleHeader() : String {
