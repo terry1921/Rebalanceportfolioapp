@@ -6,26 +6,29 @@
     android:weightSum="1">
 
     <TextView
-        style="@style/TextTitle.Medium"
+        style="@style/TextTitle.Large"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:textColor="@color/lynch"
         android:text="@string/asset"
         android:layout_weight="1"/>
 
     <TextView
-        style="@style/TextTitle.Medium"
+        style="@style/TextTitle.Large"
         android:gravity="end"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:textColor="@color/lynch"
         android:text="@string/target"/>
 
     <TextView
-        style="@style/TextTitle.Medium"
+        style="@style/TextTitle.Large"
         android:gravity="end"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:textColor="@color/lynch"
         android:text="@string/amount"/>
 

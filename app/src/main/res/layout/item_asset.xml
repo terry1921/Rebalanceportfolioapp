@@ -18,16 +18,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <View
+            android:id="@+id/groupIndicator"
+            android:layout_gravity="start"
+            android:visibility="gone"
+            android:background="@color/red_salsa"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
             android:id="@+id/groupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextTitle.Large"
-            android:textColor="@color/white_ice"
             android:visibility="gone"
-            android:background="@color/textColorSecondary"
-            android:textAllCaps="true"
-            android:text="@{asset.titleHeader}"/>
+            android:background="@color/textColorSecondary">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:textAppearance="@style/TextTitle.Medium"
+                android:textColor="@color/white_ice"
+                android:textAllCaps="true"
+                android:text="@{asset.titleHeader}"/>
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/assetContainer"
@@ -37,6 +52,7 @@
             android:orientation="horizontal"
             android:visibility="visible"
             android:weightSum="1"
+            android:paddingStart="@dimen/margin_16"
             android:layout_marginBottom="8dp"
             android:onClick="@{() -> viewmodel.openAsset(asset.id)}">
 
@@ -67,7 +83,7 @@
                 android:id="@+id/target"
                 style="@style/TextPrimary"
                 android:gravity="end"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@{asset.target}"/>
 

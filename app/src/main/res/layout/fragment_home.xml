@@ -27,13 +27,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- android:layout_marginStart="@dimen/margin_16" -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/assetsContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginStart="@dimen/margin_16"
+
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,9 @@
 
             <include
                 android:id="@+id/headerAssets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
                 layout="@layout/fragment_home_header" />
 
             <androidx.recyclerview.widget.RecyclerView
