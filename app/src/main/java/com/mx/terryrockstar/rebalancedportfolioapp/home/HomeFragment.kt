@@ -10,6 +10,7 @@ import com.mx.terryrockstar.rebalancedportfolioapp.R
 import com.mx.terryrockstar.rebalancedportfolioapp.databinding.FragmentHomeBinding
 import com.mx.terryrockstar.rebalancedportfolioapp.utils.*
 
+
 /**
  * A simple [Fragment] subclass.
  * create an instance of this fragment.
@@ -89,7 +90,10 @@ class HomeFragment : Fragment() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
             assetAdapter = AssetsAdapter(viewModel)
-            binding.assetsList.adapter = assetAdapter
+            binding.assetsList.apply {
+                setHasFixedSize(true)
+                adapter = assetAdapter
+            }
         } else {
             Print.w("ViewModel not initialized when attempting to set up adapter.")
         }
